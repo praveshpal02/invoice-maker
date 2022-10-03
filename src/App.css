@@ -1,6 +1,10 @@
-.App {
-  text-align: center;
+body {
+  font: 16px/1 'Open Sans', sans-serif;
+  overflow: auto;
+  padding: 0.5in;
+  background-color: #eee;
 }
+
 
 .App-logo {
   height: 40vmin;

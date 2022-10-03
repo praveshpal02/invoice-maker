@@ -1,0 +1,87 @@
+
+.invoice-temp {
+    background: #FFF;
+    border-radius: 1px;
+    min-height: 1100px;
+    padding: 30px 33px 0 35px;
+    box-shadow: 0 0 17px 0 rgb(16 40 73 / 9%);
+}
+
+.invoice-temp .form-control {
+    font-size: 13px;
+    height: 25px;
+    line-height: 25px;
+    margin-bottom: 6px;
+    border-color: transparent;
+    padding-left: 0px;
+}
+
+.invoice-temp .form-control:focus {
+    background: aliceblue;
+    box-shadow: none;
+    border: 1px solid #ccc;
+}
+
+.invoice-temp .form-control {
+    font-size: 13px;
+    height: 25px;
+    line-height: 25px;
+    margin-bottom: 6px;
+    border-color: transparent;
+    padding-left: 0px;
+    background: transparent;
+}
+
+.invoice-title {
+    background: #158796;
+    margin-bottom: 30px;
+}
+
+.invoice-head {
+    margin-bottom: 50px;
+}
+
+.invoice-temp .invoice-title .form-control {
+    text-align: center;
+    font-size: 24px;
+    line-height: initial;
+    height: auto;
+    border: 0px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    padding: 0px;
+    color: #fff;
+}
+
+.items-table {
+    margin-top: 50px;
+}
+
+.items-table thead {
+    background: #ffe5dc;
+}
+
+.items-table thead th {
+    font-size: 13px;
+    color: rgb(0 0 0 / 69%);
+}
+
+.table tbody td,
+.table tbody th {
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.table tbody tr td:last-child input {
+    text-align: right;
+    padding-right: 0px;
+}
+
+.invoice-temp .items-table textarea.form-control {
+    line-height: inherit;
+    min-height: 20px;
+    height: 50px;
+    overflow-wrap: break-word;
+    resize: horizontal;
+    width: 90%;
+}
