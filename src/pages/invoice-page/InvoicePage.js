@@ -7,7 +7,7 @@ function InvoicePage() {
     <div className="col-sm-8 m-auto">
                 <div className="row">
                     <div className="col-lg-10 m-auto">
-                      <Invoice />
+                      <Invoice key="1" />
                     </div>
                 </div>
             </div>

@@ -15,6 +15,7 @@
     border-color: transparent;
     border: 1px solid #eee;
     padding-left: 0px;
+    padding-right: 0;
 }
 
 .invoice-temp .form-control:focus {
@@ -82,5 +83,29 @@
     width: 90%;
 }
 .items-table thead th:last-child {
+    text-align: right;
+}
+.items-table tr {
+    position: relative;
+}
+.items-table tr:hover .d-btn{
+    visibility: visible;
+    opacity: 1;
+}
+.items-table tr .d-btn {
+    visibility: hidden;
+    opacity: 0;
+    padding: 1px 2px;
+    line-height: 1;
+    top: 9px;
+    position: relative;
+    font-size: 15px;
+}
+.table .btn-td {
+    position: absolute;
+    border: 0px;
+    padding: 0px;
+}
+.text-right{
     text-align: right;
 }
