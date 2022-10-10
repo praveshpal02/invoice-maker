@@ -13,6 +13,7 @@
     line-height: 25px;
     margin-bottom: 6px;
     border-color: transparent;
+    border: 1px solid #eee;
     padding-left: 0px;
 }
 
@@ -22,21 +23,15 @@
     border: 1px solid #ccc;
 }
 
-.invoice-temp .form-control {
-    font-size: 13px;
-    height: 25px;
-    line-height: 25px;
-    margin-bottom: 6px;
-    border-color: transparent;
-    padding-left: 0px;
-    background: transparent;
-}
-
 .invoice-title {
     background: #158796;
     margin-bottom: 30px;
 }
-
+.invoice-temp .invoice-title .form-control:focus,
+.invoice-temp .invoice-title .form-control:focus-visible,
+.invoice-temp .invoice-title .form-control:focus-within {
+    background: transparent;
+}
 .invoice-head {
     margin-bottom: 50px;
 }
@@ -51,6 +46,7 @@
     letter-spacing: 3px;
     padding: 0px;
     color: #fff;
+    background: transparent;
 }
 
 .items-table {
@@ -84,4 +80,7 @@
     overflow-wrap: break-word;
     resize: horizontal;
     width: 90%;
+}
+.items-table thead th:last-child {
+    text-align: right;
 }
