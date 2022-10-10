@@ -1,174 +1,351 @@
-import React, { useState } from 'react'
-const defaultData =
-{
-    title:"INVOICE",
-    customer: [
-        { key: "name", placeholder: "Your Name" },
-        { key: "address_one", placeholder: "Address line 1" },
-        { key: "address_two", placeholder: "Address line 2" },
-        { key: "mobile_num", placeholder: "Enter Mobile Number" }
-    ],
-    company: [
-        { key: "company", placeholder: "Client’s Company name" },
-        { key: "company_address_one", placeholder:"Client’s Address line one" },
-        { key: "company_address_two", placeholder: "Client’s Address line two" }
-    ],
-    items: [
-        { key: "item_des", placeholder: "Client’s Company name" },
-        { key: "Qty", placeholder: "Client’s Company name" },
-        { key: "rate", placeholder: "Client’s Company name" },
-        { key: "amount", placeholder: "Client’s Company name" }
-    ]
+import React, { useEffect, useState } from "react";
+import ItemList from "../invoice/itemList";
+const defaultData = {
+  title: "INVOICE",
+  inv_num_p: "Invoice#",
+  inv_num: "12",
+  inv_date_p: "Invoice Date",
+  inv_date: Date.now(),
+  inv_due_date: "12, oct 2020",
+  inv_due_p: "Due Date",
+  total: "",
+  total_label: "TOTAL",
+  customer: [
+    { key: "name", placeholder: "Your Name" },
+    { key: "address_one", placeholder: "Address line 1" },
+    { key: "address_two", placeholder: "Address line 2" },
+    { key: "mobile_num", placeholder: "Enter Mobile Number" },
+  ],
+  invoiceDetails: [
+    { key: "invoice_no", placeholder: "12", label: "Invoice#" },
+    { key: "invoice_date", placeholder: "Oct 03, 2022", label: "Invoice Date" },
+    { key: "invoice_due_date", placeholder: "Oct 03, 2022", label: "Due Date" },
+  ],
+  company: [
+    { key: "company", placeholder: "Client’s Company name" },
+    { key: "company_address_one", placeholder: "Client’s Address line one" },
+    { key: "company_address_two", placeholder: "Client’s Address line two" },
+  ],
+  items: [
+    { key: "item_des", placeholder: "Item name", label: "Item Description" },
+    { key: "qty", placeholder: "Item Quantity", label: "Qty" },
+    { key: "rate", placeholder: "Item Rate", label: "Rate" },
+    ,
+  ],
+};
+
+const getData = function(key) {
+    let data = {};
+    let invoiceData = {};
+
+    if (localStorage.getItem("invoiceData")) {
+      invoiceData = JSON.parse(localStorage.getItem("invoiceData"));
+    }
+    defaultData[key].forEach((element) => {
+      data[element.key] = "";
+    });
+    
+    if (invoiceData[key]) {
+        return invoiceData[key];
+    }
+  
+  return data;
+   
 }
+
+const getItems = function (key) {
+  let data = [];
+  let item = {};
+  let invoiceData = {};
+
+  if (localStorage.getItem("invoiceData")) {
+    invoiceData = JSON.parse(localStorage.getItem("invoiceData"));
+  }
+  defaultData[key].forEach((element) => {
+    item[element.key] = "";
+  });
+
+  if (invoiceData[key]) {
+    return invoiceData[key];
+  }
+  else {
+    data.push(item);
+    return data;
+  }
+ 
+};
 
 function Invoice() {
-    const customer = {}
-    defaultData.customer.forEach(element => {
-        customer[element.key] = "";
-    });
+  
+  // const items = {};
+  // defaultData.items.forEach((element) => {
+  //   //company[element.key] = "";
+  // });
 
-    const company = {}
-    defaultData.company.forEach(element => {
-        company[element.key] = "";
-    });
+  
 
-    const [customerData, setCustomerData] = useState(customer);
-    const [companyData, setCompanyData] = useState(company);
+  const [title, setTitle] = useState(defaultData.title);
+  const [customer, setCustomer] = useState(getData("customer"));
+  const [company, setCompany] = useState(getData("company"));
+  const [items, setItems] = useState(getItems("items"));
+  const [total, setTotal] = useState("");
+  const [invInfo, setInvInfo] = useState(getItems("invoiceDetails"));
+
+  const [inputLabel, setInputLabel] = useState({
+    total: "TOTAL",
+    inv_date: "Invoice Date",
+    inv_due: "Invoice Date",
+    inv_num: "Invoice#",
+    sub_total:"Sub Total"
+  });
+  
+
+  const handleInvInfoChange = (e) => {
+    let name = e.target.name;
+    setInvInfo({ ...invInfo, [name]: e.target.value });
+  }
     
-    const handleCustomerChange = (e) => {
-        let name = e.target.name;
-        setCustomerData({ ...customerData, [name]: e.target.value });
-    }
-    const handleCompanyChange = (e) => {
-        let name = e.target.name;
-        setCustomerData({ ...companyData, [name]: e.target.value });
-    }
+  const handleCustomerChange = (e) => {
+      let name = e.target.name;
+      setCustomer({ ...customer, [name]: e.target.value });
+     
+  };
+  const handleCompanyChange = (e) => {
+    let name = e.target.name;
+    setCompany({ ...company, [name]: e.target.value });
+   
+  };
 
+  const handleItemsChange = (e) => {
+    let name = e.target.name;
 
-    return (
-        
+    // items[e.target.getAttribute("data-index")] = {
+    //   ...items[e.target.getAttribute("data-index")],
+    //   [name]: e.target.value,
+    // };
+    
+    let dataIndex = e.target.getAttribute("data-index");
+    
+    setItems(items.map((item, ind) => {
+
+      return ind == dataIndex ? { ...item, [name]: e.target.value } : item;
+      
+    }));
+  };
+
+  const handleAddItems = (e) => {
+    e.preventDefault();
+    const newItem = { item_des: "", qty: "", rate: ""};
+    setItems([...items, newItem]);
+  }
+
+  const handleInvoiceDChange = (e) => {
+    let name = e.target.name;
+    // setCustomerData({ ...invoiceDetails, [name]: e.target.value });
+  };
+
+  const handleRemoveLineItem = (index) => (e)=> {
+    e.preventDefault();
+    const filterItems = items.filter((item, ind) => ind !== index);
+    setItems(filterItems);
+  };
+
+  const getTotal = (e) => {
+    return items.reduce((acc, cur) => (acc + (cur.qty * cur.rate)),0);
+  }
+
+  getTotal();
+    
+  useEffect(() => {
+    setTotal(items.reduce((acc, curr) => acc + curr.qty * curr.rate, 0));
+    console.log(total);
+    localStorage.setItem(
+      "invoiceData",
+      JSON.stringify({
+        customer,
+        company,
+        items,
+        invInfo,
+      })
+    );
+  }, [customer, company, items, invInfo]);
+
+   
+    
+
+  return (
     <form action="" className="invoice-temp">
-    <div className="invoice-head">
-        <h1 className="invoice-title"><input type="text" className="form-control" name="invoiceHeading" id="" value={defaultData.title}/></h1>
-                <div className="row">
-                  
-                <div className="col-sm-6">
-                    <address className="address-wrap">
-                            {
-                                defaultData.customer.map((element, ind) => {
-                                    return <div className="form-group" key={element.key}><input type="text" className="form-control"  name={element.key} id="" onChange={handleCustomerChange} placeholder={element.placeholder}/></div>
-                                })
-                           }
-                    </address>
-                </div>
-        </div>
-        
-    </div>
-    <article className="invoice-body">
+      <div className="invoice-head">
+        <h1 className="invoice-title">
+          <input
+            type="text"
+            className="form-control"
+            name="invoiceHeading"
+            id=""
+            value={defaultData.title}
+          />
+        </h1>
         <div className="row">
-        <div className="col-lg-6">
+          <div className="col-sm-6">
+            <address className="address-wrap">
+              {defaultData.customer.map((element, ind) => {
+                return (
+                  <div className="form-group" key={element.key}>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name={element.key}
+                      value={customer[element.key]}
+                      id=""
+                      onChange={handleCustomerChange}
+                      placeholder={element.placeholder}
+                    />
+                  </div>
+                );
+              })}
+            </address>
+          </div>
+        </div>
+      </div>
+      <article className="invoice-body">
+        <div className="row">
+          <div className="col-lg-6">
             <div className="bill-to">
-                            <p>Bill To:</p>
-                {
-                    defaultData.company.map((element, ind) => {
-                        return <div className="form-group" key={element.key}><input type="text" className="form-control"  name={element.key} id="" onChange={handleCustomerChange} placeholder={element.placeholder}/></div>
-                    })
-                }
-               
+              <p>Bill To:</p>
+              {defaultData.company.map((element, ind) => {
+                return (
+                  <div className="form-group" key={element.key}>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name={element.key}
+                      id=""
+                      onChange={handleCompanyChange}
+                      placeholder={element.placeholder}
+                    />
+                  </div>
+                );
+              })}
             </div>
+          </div>
+
+          <div className="col-lg-4 ms-auto">
+            {defaultData.invoiceDetails.map((element, ind) => {
+              return (
+                <div className="row">
+                  <div className="col-lg-6">
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name={element.key}
+                        id=""
+                        value={element.label}
+                        placeholder=""
+                      />
+                    </div>
+                  </div>
+                  <div className="col-lg-6">
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name={element.key}
+                        id=""
+                        onChange={handleInvInfoChange}
+                        placeholder={element.placeholder}
+                      />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
-        <div className="col-lg-4 ms-auto">
-            <div className="row">
-                <div className="col-lg-6">
-                        <div className="form-group"><input type="text" className="form-control" name="" id=""  placeholder=""/></div>
-                </div>
-                <div className="col-lg-6">
-                        <div className="form-group"><input type="text" className="form-control" name="" id=""  placeholder=""/></div>
-                </div>
-            </div>
-
-            <div className="row">
-                <div className="col-lg-6">
-                        <div className="form-group"><input type="text" className="form-control" name="" id=""  placeholder=""/></div>
-                </div>
-                <div className="col-lg-6">
-                        <div className="form-group"><input type="text" className="form-control" name="" id=""  placeholder=""/></div>
-                </div>
-            </div>
-
-            <div className="row">
-                <div className="col-lg-6">
-                        <div className="form-group"><input type="text" className="form-control" name="" id=""  placeholder=""/></div>
-                </div>
-                <div className="col-lg-6">
-                        <div className="form-group"><input type="text" className="form-control" name="" id=""  placeholder="05-Oct-2022"/></div>
-                </div>
-            </div>
-        </div>
-        </div>
-        
         <div className="items-table">
-        <table className="table">
+          <table className="table">
             <thead>
-                <tr>
-                <th scope="col">Item Description</th>
-                        <th scope="col">Qty</th>
-                        <th scope="col" >Rate</th>
-                    <th scope="col" >Amount</th>
-                </tr>
+              <tr>
+                {defaultData.items.map((element, ind) => {
+                  return <th scope="col">{element.label}</th>;
+                })}
+                <th>Total</th>
+              </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">
-                        <div className="form-group">
-                            <textarea className="form-control" name="" id="" cols="30" rows="10" ></textarea>
-                        </div>
-                    </th>
-                    <td> <div className="form-group"><input type="text" className="form-control" name="" id=""  placeholder="2"/></div></td>
-                    <td> <div className="form-group"><input type="text" className="form-control" name="" id=""  placeholder="100.00"/></div></td>
-                    <td> <div className="form-group"><input type="text" className="form-control" name="" id=""  placeholder="200.00"/></div></td>
-                </tr>
-                
-                
+              <ItemList
+                key="item"
+                items={items}
+                changeHandler={handleItemsChange}
+                deleteHandler={handleRemoveLineItem}
+                defaultData={defaultData}
+              />
             </tbody>
-            </table>
-            <div className="row">
-                <div className="col-sm-6">
-                    <a href="" className="btn btn-primary btn-sm">Add Item</a>
-                </div>
-                <div className="col-sm-6">
-                    <div className="row">
-                        <div className="col-lg-6">
-                            <div className="form-group"><input type="text" className="form-control" name="" id="sub-total"  placeholder=""/></div>
-                        </div>
-                        <div className="col-lg-6">
-                            <div className="form-group"><input type="text" className="form-control" name="" id="sub-total-value"  placeholder="INV-12"/></div>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className="col-lg-6">
-                            <div className="form-group"><input type="text" className="form-control fw-bold" name="" id="total"  placeholder=""/></div>
-                        </div>
-                        <div className="col-lg-6">
-                            <div className="total-value"></div>
-                        </div>
-                    </div>
-
-                </div>
+          </table>
+          <div className="row">
+            <div className="col-sm-6">
+              <a
+                href=""
+                className="btn btn-primary btn-sm"
+                onClick={handleAddItems}
+              >
+                Add Item
+              </a>
             </div>
+            <div className="col-sm-6">
+              <div className="row">
+                <div className="col-lg-6">
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      name=""
+                      id="sub-total"
+                      placeholder=""
+                    />
+                  </div>
+                </div>
+                <div className="col-lg-6">
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control text-right"
+                      name=""
+                      id="sub-total-value"
+                      placeholder="INV-12"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-lg-6">
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control fw-bold"
+                      name=""
+                      id="total"
+                      placeholder=""
+                    />
+                  </div>
+                </div>
+                <div className="col-lg-6">
+                  <div className="total-value text-right">
+                    {total}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </article>
-    <aside>
-        
-        <div>
-            
-        </div>
-    </aside>
+      </article>
+      <aside>
+        <div></div>
+      </aside>
     </form>
-                   
-  )
+  );
 }
 
-export default Invoice
+export default Invoice;

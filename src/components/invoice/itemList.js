@@ -1,18 +1,18 @@
 import React from 'react'
 import Item from "./Item";
 
-function ItemList({ items, changeHandler, defaultData }) {
+function ItemList({ items, changeHandler, defaultData, deleteHandler }) {
   return items.map((element, index) => {
     return (
       <tr>
-       
-          <Item
-            item={element}
-            index={index}
-            changeHandler={changeHandler}
-            defaultData={defaultData}
-          />
-       
+        <Item
+          key={index}
+          item={element}
+          index={index}
+          changeHandler={changeHandler}
+          defaultData={defaultData}
+          deleteHandler={deleteHandler}
+        />
       </tr>
     );
   });
