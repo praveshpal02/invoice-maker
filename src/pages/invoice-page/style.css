@@ -163,3 +163,6 @@ table.right p {
     margin-bottom: 0px;
     background: transparent;
 }
+.items-table .table thead tr:nth-of-type(odd) {
+    background: transparent;
+}
