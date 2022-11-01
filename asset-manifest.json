@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/invoice-maker/static/css/main.2c1742e5.css",
-    "main.js": "/invoice-maker/static/js/main.4ecf0c9c.js",
-    "static/js/787.ff59822f.chunk.js": "/invoice-maker/static/js/787.ff59822f.chunk.js",
-    "index.html": "/invoice-maker/index.html",
-    "main.2c1742e5.css.map": "/invoice-maker/static/css/main.2c1742e5.css.map",
-    "main.4ecf0c9c.js.map": "/invoice-maker/static/js/main.4ecf0c9c.js.map",
-    "787.ff59822f.chunk.js.map": "/invoice-maker/static/js/787.ff59822f.chunk.js.map"
+    "main.css": "/praveshpal02/invoice-maker/static/css/main.2c1742e5.css",
+    "main.js": "/praveshpal02/invoice-maker/static/js/main.94a43c14.js",
+    "static/js/787.ff59822f.chunk.js": "/praveshpal02/invoice-maker/static/js/787.ff59822f.chunk.js",
+    "index.html": "/praveshpal02/invoice-maker/index.html",
+    "main.2c1742e5.css.map": "/praveshpal02/invoice-maker/static/css/main.2c1742e5.css.map",
+    "main.94a43c14.js.map": "/praveshpal02/invoice-maker/static/js/main.94a43c14.js.map",
+    "787.ff59822f.chunk.js.map": "/praveshpal02/invoice-maker/static/js/787.ff59822f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2c1742e5.css",
-    "static/js/main.4ecf0c9c.js"
+    "static/js/main.94a43c14.js"
   ]
 }
