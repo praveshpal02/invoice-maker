@@ -13,7 +13,7 @@
     line-height: 25px;
     margin-bottom: 6px;
     border-color: transparent;
-    border: 1px solid #eee;
+
     padding-left: 0px;
     padding-right: 0;
 }
@@ -34,7 +34,7 @@
     background: transparent;
 }
 .invoice-head {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .invoice-temp .invoice-title .form-control {
@@ -55,7 +55,11 @@
 }
 
 .items-table thead {
-    background: #ffe5dc;
+    background: #d8f0fc;
+}
+.items-table thead th {
+    border-bottom: 0px;
+    padding: 8px 12px;
 }
 
 .items-table thead th {
@@ -108,4 +112,54 @@
 }
 .text-right{
     text-align: right;
+}
+
+
+.bill-sec .row {
+    display: block;
+}
+
+.bill-sec .col-lg-6 {
+    width: 50%;
+    float: left;
+    flex: none;
+}
+
+.bill-sec .col-lg-4 {
+    width: 35%;
+    float: left;
+}
+
+.bill-sec .row:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+.printEnable .invoice-temp {
+    box-shadow: none;
+}
+
+.printEnable .invoice-temp .btn.btn-primary.btn-sm {
+    display: none;
+}
+.inv-wrapper {
+    background: #f5f5f5;
+}
+table.right {
+    float: right;
+    text-align: right;
+}
+table.right p {
+    margin-bottom: 0px;
+    margin-right: 10px;
+}
+.items-table .table tr:nth-of-type(even) {
+    background: #fff;
+}
+.items-table .table tr:nth-of-type(odd) {
+    background: #F9F9F9;
+}
+.items-table td .form-group>input {
+    margin-bottom: 0px;
+    background: transparent;
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ItemList from "../invoice/itemList";
+
 const defaultData = {
   title: "INVOICE",
   inv_num_p: "Invoice#",
@@ -75,14 +76,11 @@ const getItems = function (key) {
  
 };
 
-function Invoice() {
-  
+const Invoice = React.forwardRef((props, ref) => {
   // const items = {};
   // defaultData.items.forEach((element) => {
   //   //company[element.key] = "";
   // });
-
-  
 
   const [title, setTitle] = useState(defaultData.title);
   const [customer, setCustomer] = useState(getData("customer"));
@@ -96,24 +94,21 @@ function Invoice() {
     inv_date: "Invoice Date",
     inv_due: "Invoice Date",
     inv_num: "Invoice#",
-    sub_total:"Sub Total"
+    sub_total: "Sub Total",
   });
-  
 
   const handleInvInfoChange = (e) => {
     let name = e.target.name;
     setInvInfo({ ...invInfo, [name]: e.target.value });
-  }
-    
+  };
+
   const handleCustomerChange = (e) => {
-      let name = e.target.name;
-      setCustomer({ ...customer, [name]: e.target.value });
-     
+    let name = e.target.name;
+    setCustomer({ ...customer, [name]: e.target.value });
   };
   const handleCompanyChange = (e) => {
     let name = e.target.name;
     setCompany({ ...company, [name]: e.target.value });
-   
   };
 
   const handleItemsChange = (e) => {
@@ -123,42 +118,49 @@ function Invoice() {
     //   ...items[e.target.getAttribute("data-index")],
     //   [name]: e.target.value,
     // };
-    
-    let dataIndex = e.target.getAttribute("data-index");
-    
-    setItems(items.map((item, ind) => {
 
-      return ind == dataIndex ? { ...item, [name]: e.target.value } : item;
-      
-    }));
+    let dataIndex = e.target.getAttribute("data-index");
+
+    setItems(
+      items.map((item, ind) => {
+        return ind == dataIndex ? { ...item, [name]: e.target.value } : item;
+      })
+    );
   };
 
   const handleAddItems = (e) => {
     e.preventDefault();
-    const newItem = { item_des: "", qty: "", rate: ""};
-    setItems([...items, newItem]);
-  }
+    const newItem = { item_des: "", qty: "", rate: "" };
+    if (items.length == 10) {
+      console.log("cannot add more than 10");
+    } else {
+      setItems([...items, newItem]);
+    }
+  };
 
   const handleInvoiceDChange = (e) => {
     let name = e.target.name;
     // setCustomerData({ ...invoiceDetails, [name]: e.target.value });
   };
 
-  const handleRemoveLineItem = (index) => (e)=> {
+  const handleRemoveLineItem = (index) => (e) => {
     e.preventDefault();
-    const filterItems = items.filter((item, ind) => ind !== index);
-    setItems(filterItems);
+    if (index) {
+      const filterItems = items.filter((item, ind) => ind !== index);
+      setItems(filterItems);
+    } else {
+      alert("should have one field");
+    }
   };
 
   const getTotal = (e) => {
-    return items.reduce((acc, cur) => (acc + (cur.qty * cur.rate)),0);
-  }
+    return items.reduce((acc, cur) => acc + cur.qty * cur.rate, 0);
+  };
 
   getTotal();
-    
+
   useEffect(() => {
     setTotal(items.reduce((acc, curr) => acc + curr.qty * curr.rate, 0));
-    console.log(total);
     localStorage.setItem(
       "invoiceData",
       JSON.stringify({
@@ -170,11 +172,8 @@ function Invoice() {
     );
   }, [customer, company, items, invInfo]);
 
-   
-    
-
   return (
-    <form action="" className="invoice-temp">
+    <form action="" className="invoice-temp" ref={ref}>
       <div className="invoice-head">
         <h1 className="invoice-title">
           <input
@@ -208,7 +207,7 @@ function Invoice() {
         </div>
       </div>
       <article className="invoice-body">
-        <div className="row">
+        <div className="row bill-sec">
           <div className="col-lg-6">
             <div className="bill-to">
               <p>Bill To:</p>
@@ -283,8 +282,9 @@ function Invoice() {
               />
             </tbody>
           </table>
-          <div className="row">
-            <div className="col-sm-6">
+
+          <div>
+            {items.length !== 10 && !props.isPrinting && (
               <a
                 href=""
                 className="btn btn-primary btn-sm"
@@ -292,52 +292,24 @@ function Invoice() {
               >
                 Add Item
               </a>
-            </div>
-            <div className="col-sm-6">
-              <div className="row">
-                <div className="col-lg-6">
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      name=""
-                      id="sub-total"
-                      placeholder=""
-                    />
-                  </div>
-                </div>
-                <div className="col-lg-6">
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className="form-control text-right"
-                      name=""
-                      id="sub-total-value"
-                      placeholder="INV-12"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="row">
-                <div className="col-lg-6">
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className="form-control fw-bold"
-                      name=""
-                      id="total"
-                      placeholder=""
-                    />
-                  </div>
-                </div>
-                <div className="col-lg-6">
-                  <div className="total-value text-right">
-                    {total}
-                  </div>
-                </div>
-              </div>
-            </div>
+            )}
+          </div>
+          <div class="">
+            <table class="right">
+              <tbody>
+                <tr>
+                  <td>
+                    <p>
+                      <strong>Total</strong>
+                    </p>
+                  </td>
+                  <td>
+                    <span id="InvoceTotalVat">{total}</span>{" "}
+                    <span id="InvoiceCurrency1">INR</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </article>
@@ -346,6 +318,7 @@ function Invoice() {
       </aside>
     </form>
   );
-}
+});
 
 export default Invoice;
+

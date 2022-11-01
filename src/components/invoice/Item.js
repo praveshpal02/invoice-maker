@@ -28,12 +28,18 @@ function Item({ item, index, changeHandler, defaultData, deleteHandler }) {
       })}
       <td className='text-right'>{rate && qty  ? rate * qty : ''}</td>
       <td className="btn-td">
-        <button
-          className="btn btn-danger btn-xs d-btn"
+        
+        {
+          index ? <button
+          className={`btn btn-danger btn-xs d-btn ${index == 0 ? "disbaled":""}`}
           onClick={deleteHandler(index)}
         >
           <MdDelete key={index} />
-        </button>
+          </button>
+            :
+            ""
+        }
+        
       </td>
     </>
   );

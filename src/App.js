@@ -1,12 +1,15 @@
 
 import './App.css';
-import InvoicePage from './pages/invoice-page/InvoicePage';
+import React, { useRef } from "react";
+import InvoicePage from "./pages/invoice-page/InvoicePage";
+import { useReactToPrint } from "react-to-print";
 
 
 function App() {
   return (
     <div className="App">
-      <InvoicePage/>
+     
+      <InvoicePage  />
     </div>
   );
 }
