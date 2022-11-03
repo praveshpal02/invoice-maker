@@ -11,18 +11,33 @@ function Item({ item, index, changeHandler, defaultData, deleteHandler }) {
       {defaultData.items.map((ele, ind) => {
         return (
           <td key={ind}>
-            <div className="form-group">
-              <input
-                type="text"
-                className="form-control"
-                name={ele.key}
-                onChange={changeHandler}
-                id={ele.key}
-                value={item[ele.key]}
-                placeholder={ele.placeholder}
-                data-index={index}
-              />
-            </div>
+            {ele.key == "item_des" ? (
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  name={ele.key}
+                  onChange={changeHandler}
+                  id={ele.key}
+                  value={item[ele.key]}
+                  placeholder={ele.placeholder}
+                  data-index={index}
+                />
+              </div>
+            ) : (
+              <div className="form-group">
+                <input
+                  type="number"
+                  className="form-control"
+                  name={ele.key}
+                  onChange={changeHandler}
+                  id={ele.key}
+                  value={item[ele.key]}
+                  placeholder={ele.placeholder}
+                  data-index={index}
+                />
+              </div>
+            )}
           </td>
         );
       })}
