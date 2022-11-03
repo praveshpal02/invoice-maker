@@ -1,8 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
 
-import Invoice from '../../components/template1/Invoice';
+import Invoice from "../../templates";
 import { useReactToPrint } from "react-to-print";
 import "./style.css";
+import { DefaultData, getData, getItems } from "../../data/index";
+
+
 function InvoicePage() {
   const [isPrinting, setIsPrinting] = useState(false);
   const handleBeforePrint = React.useCallback(() => {
