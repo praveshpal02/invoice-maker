@@ -3,10 +3,9 @@ import BillFrom from '../components/invoice/billFrom';
 import BillTo from '../components/invoice/billTo';
 import InvInfo from '../components/invoice/invInfo';
 import ItemsTable from '../components/invoice/ItemsTable';
+import defaultData from "../config.json";
 
 function Template1({
-  DefaultData,
-  ref,
   handlers,
   customer,
   company,
@@ -16,7 +15,7 @@ function Template1({
   isPrinting,
 }) {
   return (
-    <form action="" className="invoice-temp" ref={ref}>
+    <form action="" className="invoice-temp" >
       <div className="invoice-head">
         <h1 className="invoice-title">
           <input
@@ -24,13 +23,13 @@ function Template1({
             className="form-control"
             name="invoiceHeading"
             id=""
-            value={DefaultData.title}
+            value={defaultData.title}
           />
         </h1>
         <div className="row">
           <div className="col-sm-6">
             <BillFrom
-              DefaultData={DefaultData}
+              defaultData={defaultData}
               handlers={handlers}
               customer={customer}
             />
@@ -42,20 +41,20 @@ function Template1({
         <div className="row bill-sec">
           <div className="col-lg-6">
             <BillTo
-              DefaultData={DefaultData}
+              defaultData={defaultData}
               handlers={handlers}
               customer={customer}
             />
           </div>
 
           <div className="col-lg-4 ms-auto">
-            <InvInfo handlers={handlers} DefaultData={DefaultData} />
+            <InvInfo handlers={handlers} defaultData={defaultData} />
           </div>
         </div>
 
         <div className="items-table">
           <ItemsTable
-            DefaultData={DefaultData}
+            defaultData={defaultData}
             handlers={handlers}
             items={items}
             isPrinting={isPrinting}

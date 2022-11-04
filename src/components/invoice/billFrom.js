@@ -1,9 +1,10 @@
 import React from 'react'
+import defaultData from "../../config.json";
 
-function BillFrom({ DefaultData, handlers, customer }) {
+function BillFrom({handlers, customer }) {
   return (
     <address className="address-wrap">
-      {DefaultData.customer.map((element, ind) => {
+      {defaultData.customer.map((element, ind) => {
         return (
           <div className="form-group" key={element.key}>
             <input

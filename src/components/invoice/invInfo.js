@@ -1,9 +1,10 @@
 import React from 'react'
+import defaultData from "../../config.json";
 
-function InvInfo({ DefaultData,handlers }) {
+function InvInfo({handlers }) {
   return (
     <div>
-      {DefaultData.invoiceDetails.map((element, ind) => {
+      {defaultData.invoiceDetails.map((element, ind) => {
         return (
           <div className="row">
             <div className="col-lg-6">

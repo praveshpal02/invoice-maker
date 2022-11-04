@@ -1,10 +1,11 @@
 import React from 'react'
+import defaultData from "../../config.json";
 
-function BillTo({ DefaultData, handlers, company }) {
+function BillTo({handlers, company }) {
   return (
     <div className="bill-to">
       <p>Bill To:</p>
-      {DefaultData.company.map((element, ind) => {
+      {defaultData.company.map((element, ind) => {
         return (
           <div className="form-group" key={element.key}>
             <input

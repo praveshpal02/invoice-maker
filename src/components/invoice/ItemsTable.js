@@ -1,14 +1,15 @@
 import React from 'react'
 import AddItem from './AddItem';
 import ItemList from './itemList'; 
+import defaultData from "../../config.json";
     
-function ItemsTable({ DefaultData, handlers, items, isPrinting }) {
+function ItemsTable({handlers, items, isPrinting }) {
   return (
     <>
       <table className="table">
         <thead>
           <tr>
-            {DefaultData.items.map((element, ind) => {
+            {defaultData.items.map((element, ind) => {
               return <th scope="col">{element.label}</th>;
             })}
             <th>Total</th>
@@ -20,12 +21,11 @@ function ItemsTable({ DefaultData, handlers, items, isPrinting }) {
             items={items}
             changeHandler={handlers.handleItemsChange}
             deleteHandler={handlers.handleRemoveLineItem}
-            defaultData={DefaultData}
+            defaultData={defaultData}
           />
         </tbody>
       </table>
       <AddItem items={items} handlers={handlers} isPrinting={isPrinting} />
-      
     </>
   );
 }

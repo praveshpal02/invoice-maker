@@ -1,12 +1,49 @@
 import React, { useEffect, useState } from "react";
-import { DefaultData, getData, getItems } from "../data/index";
+
 import Template1 from "./template1";
+import defaultData from "../config.json"
 
+const getData = function (key) {
+  let data = {};
+  let invoiceData = {};
 
+  if (localStorage.getItem("invoiceData")) {
+    invoiceData = JSON.parse(localStorage.getItem("invoiceData"));
+  }
+  defaultData[key].forEach((element) => {
+    data[element.key] = "";
+  });
+
+  if (invoiceData[key]) {
+    return invoiceData[key];
+  }
+
+  return data;
+};
+
+const getItems = function (key) {
+  let data = [];
+  let item = {};
+  let invoiceData = {};
+
+  if (localStorage.getItem("invoiceData")) {
+    invoiceData = JSON.parse(localStorage.getItem("invoiceData"));
+  }
+  defaultData[key].forEach((element) => {
+    item[element.key] = "";
+  });
+
+  if (invoiceData[key]) {
+    return invoiceData[key];
+  } else {
+    data.push(item);
+    return data;
+  }
+};
 const Invoice = React.forwardRef((props, ref) => {
 
-
-  const [title, setTitle] = useState(DefaultData.title);
+  console.log(defaultData, "11");
+  const [title, setTitle] = useState(defaultData.title);
   const [customer, setCustomer] = useState(getData("customer"));
   const [company, setCompany] = useState(getData("company"));
   const [items, setItems] = useState(getItems("items"));
@@ -104,46 +141,19 @@ const Invoice = React.forwardRef((props, ref) => {
  
   return (
     <>
-      <Template1
-        DefaultData={DefaultData}
-        ref={ref}
-        handlers={handlers}
-        customer={customer}
-        company={company}
-        items={items}
-        invInfo={invInfo}
-        total={total}
-        isPrinting={props.isPrinting}
-      />
-      <form action="" className="invoice-temp" ref={ref}>
-        <article className="invoice-body">
-          <div className="row bill-sec"></div>
-
-          <div className="items-table">
-           
-            <div className="">
-              <table className="right">
-                <tbody>
-                  <tr>
-                    <td>
-                      <p>
-                        <strong>Total</strong>
-                      </p>
-                    </td>
-                    <td>
-                      <span id="InvoceTotalVat">{total}</span>{" "}
-                      <span id="InvoiceCurrency1">INR</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </article>
-        <aside>
-          <div></div>
-        </aside>
-      </form>
+      <div ref={ref}>
+        <Template1
+          defaultData={defaultData}
+          handlers={handlers}
+          customer={customer}
+          company={company}
+          items={items}
+          invInfo={invInfo}
+          total={total}
+          isPrinting={props.isPrinting}
+        />
+      </div>
+    
     </>
   );
 });

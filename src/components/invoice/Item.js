@@ -1,7 +1,8 @@
 import React from 'react'
 import { MdDelete } from "react-icons/md";
+import defaultData from "../../config.json";
 
-function Item({ item, index, changeHandler, defaultData, deleteHandler }) {
+function Item({ item, index, changeHandler, deleteHandler }) {
   
   const { rate, qty } = item;
   

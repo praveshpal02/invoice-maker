@@ -1,7 +1,7 @@
 import React from 'react'
 import Item from "./Item";
 
-function ItemList({ items, changeHandler, defaultData, deleteHandler }) {
+function ItemList({ items, changeHandler, deleteHandler }) {
   return items.map((element, index) => {
     return (
       <tr>
@@ -10,7 +10,6 @@ function ItemList({ items, changeHandler, defaultData, deleteHandler }) {
           item={element}
           index={index}
           changeHandler={changeHandler}
-          defaultData={defaultData}
           deleteHandler={deleteHandler}
         />
       </tr>
