@@ -1,8 +1,8 @@
-import React from 'react'
-import BillFrom from '../components/invoice/billFrom';
-import BillTo from '../components/invoice/billTo';
-import InvInfo from '../components/invoice/invInfo';
-import ItemsTable from '../components/invoice/ItemsTable';
+import React from "react";
+import BillFrom from "../components/invoice/billFrom";
+import BillTo from "../components/invoice/billTo";
+import InvInfo from "../components/invoice/invInfo";
+import ItemsTable from "../components/invoice/ItemsTable";
 import defaultData from "../config.json";
 
 function Template1({
@@ -12,10 +12,11 @@ function Template1({
   items,
   invInfo,
   total,
+  curr,
   isPrinting,
 }) {
   return (
-    <form action="" className="invoice-temp" >
+    <form action="" className="invoice-temp">
       <div className="invoice-head">
         <h1 className="invoice-title">
           <input
@@ -57,8 +58,15 @@ function Template1({
             defaultData={defaultData}
             handlers={handlers}
             items={items}
+            curr={curr}
             isPrinting={isPrinting}
           />
+        </div>
+        <div className="text-right">
+          <span>
+            <strong>Total</strong>
+          </span>{" "}
+          {total} {curr}
         </div>
       </article>
     </form>

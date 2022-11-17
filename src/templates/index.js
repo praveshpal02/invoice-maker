@@ -1,56 +1,19 @@
 import React, { useEffect, useState } from "react";
-
+import { Route, Routes,Link } from "react-router-dom";
+import { getData, getItems } from "../utility";
 import Template1 from "./template1";
-import defaultData from "../config.json"
+import Template2 from "./Template2/template2";
+import defaultData from "../config.json";
 
-const getData = function (key) {
-  let data = {};
-  let invoiceData = {};
-
-  if (localStorage.getItem("invoiceData")) {
-    invoiceData = JSON.parse(localStorage.getItem("invoiceData"));
-  }
-  defaultData[key].forEach((element) => {
-    data[element.key] = "";
-  });
-
-  if (invoiceData[key]) {
-    return invoiceData[key];
-  }
-
-  return data;
-};
-
-const getItems = function (key) {
-  let data = [];
-  let item = {};
-  let invoiceData = {};
-
-  if (localStorage.getItem("invoiceData")) {
-    invoiceData = JSON.parse(localStorage.getItem("invoiceData"));
-  }
-  defaultData[key].forEach((element) => {
-    item[element.key] = "";
-  });
-
-  if (invoiceData[key]) {
-    return invoiceData[key];
-  } else {
-    data.push(item);
-    return data;
-  }
-};
 const Invoice = React.forwardRef((props, ref) => {
-
   console.log(defaultData, "11");
-  const [title, setTitle] = useState(defaultData.title);
+  // const [title, setTitle] = useState(defaultData.title);
   const [customer, setCustomer] = useState(getData("customer"));
   const [company, setCompany] = useState(getData("company"));
   const [items, setItems] = useState(getItems("items"));
   const [invInfo, setInvInfo] = useState(getItems("invoiceDetails"));
   const [total, setTotal] = useState("");
 
- 
   const handleInvInfoChange = (e) => {
     let name = e.target.name;
     setInvInfo({ ...invInfo, [name]: e.target.value });
@@ -67,12 +30,6 @@ const Invoice = React.forwardRef((props, ref) => {
 
   const handleItemsChange = (e) => {
     let name = e.target.name;
-
-    // items[e.target.getAttribute("data-index")] = {
-    //   ...items[e.target.getAttribute("data-index")],
-    //   [name]: e.target.value,
-    // };
-
     let dataIndex = e.target.getAttribute("data-index");
 
     setItems(
@@ -108,8 +65,8 @@ const Invoice = React.forwardRef((props, ref) => {
   };
 
   const getTotal = (e) => {
-    console.log()
-    return items.reduce((acc, cur) => console.log(acc,cur), 0);
+    let t = items.reduce((acc, cur) => console.log(acc, cur), 0);
+    return <span>t</span>;
   };
 
   getTotal();
@@ -127,36 +84,57 @@ const Invoice = React.forwardRef((props, ref) => {
     );
   }, [customer, company, items, invInfo]);
 
- 
-   const handlers = {
-     handleInvInfoChange,
-     handleCustomerChange,
-     handleCompanyChange,
-     handleItemsChange,
-     handleAddItems,
-     handleInvoiceDChange,
-     handleRemoveLineItem,
-   };
-  
- 
+  const handlers = {
+    handleInvInfoChange,
+    handleCustomerChange,
+    handleCompanyChange,
+    handleItemsChange,
+    handleAddItems,
+    handleInvoiceDChange,
+    handleRemoveLineItem,
+  };
+
   return (
     <>
       <div ref={ref}>
-        <Template1
-          defaultData={defaultData}
-          handlers={handlers}
-          customer={customer}
-          company={company}
-          items={items}
-          invInfo={invInfo}
-          total={total}
-          isPrinting={props.isPrinting}
-        />
+        <Routes>
+          <Route
+            element={
+              <Template1
+                defaultData={defaultData}
+                handlers={handlers}
+                customer={customer}
+                company={company}
+                items={items}
+                invInfo={invInfo}
+                total={total}
+                curr={props.curr}
+                isPrinting={props.isPrinting}
+              />
+            }
+            path="/invoice-maker"
+          />
+
+          <Route
+            element={
+              <Template2
+                defaultData={defaultData}
+                handlers={handlers}
+                customer={customer}
+                company={company}
+                items={items}
+                invInfo={invInfo}
+                total={total}
+                curr={props.curr}
+                isPrinting={props.isPrinting}
+              />
+            }
+            path="/invoice-maker/temp2"
+          />
+        </Routes>
       </div>
-    
     </>
   );
 });
 
 export default Invoice;
-

@@ -2,10 +2,8 @@ import React from 'react'
 import { MdDelete } from "react-icons/md";
 import defaultData from "../../config.json";
 
-function Item({ item, index, changeHandler, deleteHandler }) {
-  
+function Item({ item, index, changeHandler, deleteHandler, curr }) {
   const { rate, qty } = item;
-  
 
   return (
     <>
@@ -42,20 +40,20 @@ function Item({ item, index, changeHandler, deleteHandler }) {
           </td>
         );
       })}
-      <td className='text-right'>{rate && qty  ? rate * qty : ''}</td>
+      <td className="text-right">{rate && qty ? rate * qty : ""}</td>
       <td className="btn-td">
-        
-        {
-          index ? <button
-          className={`btn btn-danger btn-xs d-btn ${index == 0 ? "disbaled":""}`}
-          onClick={deleteHandler(index)}
-        >
-          <MdDelete key={index} />
+        {index ? (
+          <button
+            className={`btn btn-danger btn-xs d-btn ${
+              index == 0 ? "disbaled" : ""
+            }`}
+            onClick={deleteHandler(index)}
+          >
+            <MdDelete key={index} />
           </button>
-            :
-            ""
-        }
-        
+        ) : (
+          ""
+        )}
       </td>
     </>
   );
