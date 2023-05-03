@@ -4,6 +4,7 @@ import { useReactToPrint } from "react-to-print";
 import "./style.css";
 import { Link } from "react-router-dom";
 import Currency from "../../components/invoice/Currency";
+import defaultData from "../../config.json"
 
 
 
@@ -41,7 +42,7 @@ function InvoicePage() {
   
   return (
     <div className={`inv-wrapper ${isPrinting ? "printEnable" : ""}`}>
-      <div className="container-fluid">
+      <div className="container">
         <div className="row">
           <div className="col-sm-4">
             <div className="row">
@@ -62,7 +63,7 @@ function InvoicePage() {
                     <li className="nav-item">
                       <Link
                         to="/invoice-maker"
-                        class="btn btn-outline-danger me-2"
+                        className="btn btn-outline-danger me-2"
                         aria-current="page"
                         href="#"
                       >

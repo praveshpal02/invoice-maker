@@ -5,8 +5,14 @@ import Template1 from "./template1";
 import Template2 from "./Template2/template2";
 import defaultData from "../config.json";
 
+
+export const TotalContext = React.createContext();
+  
 const Invoice = React.forwardRef((props, ref) => {
   console.log(defaultData, "11");
+
+
+
   // const [title, setTitle] = useState(defaultData.title);
   const [customer, setCustomer] = useState(getData("customer"));
   const [company, setCompany] = useState(getData("company"));
@@ -97,41 +103,43 @@ const Invoice = React.forwardRef((props, ref) => {
   return (
     <>
       <div ref={ref}>
-        <Routes>
-          <Route
-            element={
-              <Template1
-                defaultData={defaultData}
-                handlers={handlers}
-                customer={customer}
-                company={company}
-                items={items}
-                invInfo={invInfo}
-                total={total}
-                curr={props.curr}
-                isPrinting={props.isPrinting}
-              />
-            }
-            path="/invoice-maker"
-          />
+        <TotalContext.Provider value={total}>
+          <Routes>
+            <Route
+              element={
+                <Template1
+                  defaultData={defaultData}
+                  handlers={handlers}
+                  customer={customer}
+                  company={company}
+                  items={items}
+                  invInfo={invInfo}
+                  total={total}
+                  curr={props.curr}
+                  isPrinting={props.isPrinting}
+                />
+              }
+              path="/invoice-maker"
+            />
 
-          <Route
-            element={
-              <Template2
-                defaultData={defaultData}
-                handlers={handlers}
-                customer={customer}
-                company={company}
-                items={items}
-                invInfo={invInfo}
-                total={total}
-                curr={props.curr}
-                isPrinting={props.isPrinting}
-              />
-            }
-            path="/invoice-maker/temp2"
-          />
-        </Routes>
+            <Route
+              element={
+                <Template2
+                  defaultData={defaultData}
+                  handlers={handlers}
+                  customer={customer}
+                  company={company}
+                  items={items}
+                  invInfo={invInfo}
+                  total={total}
+                  curr={props.curr}
+                  isPrinting={props.isPrinting}
+                />
+              }
+              path="/invoice-maker/temp2"
+            />
+          </Routes>
+        </TotalContext.Provider>
       </div>
     </>
   );

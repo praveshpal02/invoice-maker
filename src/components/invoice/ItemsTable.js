@@ -10,7 +10,7 @@ function ItemsTable({handlers, items, isPrinting,curr }) {
         <thead>
           <tr>
             {defaultData.items.map((element, ind) => {
-              return element.label == "Qty" ? (
+              return element.label == "Rate" ? (
                 <th scope="col">
                   {element.label} ({curr})
                 </th>
@@ -33,6 +33,7 @@ function ItemsTable({handlers, items, isPrinting,curr }) {
         </tbody>
       </table>
       <AddItem items={items} handlers={handlers} isPrinting={isPrinting} />
+      
     </>
   );
 }

@@ -180,3 +180,79 @@ table.right p {
     background: #fff;
     margin-bottom: 30px;
 }
+.form-control.more-info {
+    border: 1px solid #ccc;
+
+    height: 100px;
+}
+.printEnable .form-control.more-info{
+    border: 0px;
+}
+.uploader input[type="file"] {
+    opacity: 0;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    cursor: pointer;
+}
+.uploader .sign {
+    max-width: 100%;
+    max-height: 100%;
+}
+.uploader .btn-danger {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    padding: 2px 4px;
+}
+
+.uploader {
+    height: 100px;
+    background: #f9f9f94d;
+    text-align: center;
+    padding: 10px;
+    width: 80%;
+    float: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
+    border: 1px solid #cccccc7a;
+    border-radius: 12px;
+    position: relative;
+}
+
+.uploader .up-content p {
+    font-size: 13px;
+    max-width: 102px;
+    opacity: 0.7;
+}
+.printEnable .uploader{
+    border: 0px;
+    background: transparent;
+}
+.printEnable .uploader .btn-danger{
+    display: none;
+}
+.printEnable .form-control.more-info{
+    border: 0px;
+}
+.printEnable textarea{
+    resize: none !important;
+}
+textarea.resize-none {
+    resize: none !important;
+}
+.printEnable input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+.uploader.print .btn-danger,
+.uploader.print .up-content{
+    display: none !important;
+}
+.up-content{
+
+}

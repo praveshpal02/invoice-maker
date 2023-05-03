@@ -4,6 +4,8 @@ import BillTo from "../components/invoice/billTo";
 import InvInfo from "../components/invoice/invInfo";
 import ItemsTable from "../components/invoice/ItemsTable";
 import defaultData from "../config.json";
+import TextEditor from "../components/TextEditor";
+import Sign from "../components/invoice/Sign";
 
 function Template1({
   handlers,
@@ -67,6 +69,18 @@ function Template1({
             <strong>Total</strong>
           </span>{" "}
           {total} {curr}
+        </div>
+        <div className="inv-footer">
+          <div className="row justify-content-between mt-5">
+            <div className="col-sm-6">
+              <div className="form-group">
+                <textarea className={`form-control more-info ${isPrinting ? "border-0 bg-transparent resize-none":""}`} />
+              </div>
+            </div>
+            <div className="col-sm-5">
+              <Sign isPrinting={isPrinting} />
+            </div>
+          </div>
         </div>
       </article>
     </form>

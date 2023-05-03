@@ -1,13 +1,5 @@
 {
     "title": "INVOICE",
-    "inv_num_p": "Invoice#",
-    "inv_num": "12",
-    "inv_date_p": "Invoice Date",
-    "inv_date": 1667471514683,
-    "inv_due_date": "12, oct 2020",
-    "inv_due_p": "Due Date",
-    "total": "",
-    "total_label": "TOTAL",
     "customer": [
         {
             "key": "name",
@@ -42,6 +34,7 @@
             "placeholder": "Oct 03, 2022",
             "label": "Due Date"
         }
+        
     ],
     "company": [
         {
@@ -74,5 +67,6 @@
             "label": "Rate"
         }
     ],
-    "currency":["₹","$"]
+    
+    "currency":["INR","USD"]
 }
