@@ -43,7 +43,20 @@ function InvoicePage() {
   return (
     <div className={`inv-wrapper ${isPrinting ? "printEnable" : ""}`}>
       <div className="container">
+        
         <div className="row">
+          <div className={`col-sm-8`}>
+            <div className="row">
+              <div className="col-lg-10 m-auto">
+                <Invoice
+                  curr={curr}
+                  isPrinting={isPrinting}
+                  key="1"
+                  ref={componentRef}
+                />
+              </div>
+            </div>
+          </div>
           <div className="col-sm-4">
             <div className="row">
               <div className="col-sm-10 m-auto">
@@ -85,19 +98,6 @@ function InvoicePage() {
 
                   <Currency handlers={handleCurr} />
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div className={`col-sm-8`}>
-            <div className="row">
-              <div className="col-lg-10 m-auto">
-                <Invoice
-                  curr={curr}
-                  isPrinting={isPrinting}
-                  key="1"
-                  ref={componentRef}
-                />
               </div>
             </div>
           </div>
